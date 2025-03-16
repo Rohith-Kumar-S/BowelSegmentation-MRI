@@ -17,6 +17,6 @@ First, the **EDA Module** analyzes the image intensity distributions and class i
 
 ---
 
-**Work Split**
+#### **Work Split**
  The workload will be divided between the two team members based on a peer review system. Rohith will take the lead on the technical aspects, including implementing deep learning models, clustering techniques, and image processing methods. Meanwhile, Shweta will focus on documentation, ensuring that the project is well-documented with clear explanations, methodology, and results. She will also be responsible for compiling reports, maintaining version control, and organizing findings for presentations. We will both work on Exploratory Data Analysis and review each other's work to ensure accuracy, clarity, and overall project quality.
 
