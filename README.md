@@ -81,7 +81,7 @@ https://pubmed.ncbi.nlm.nih.gov/40357737/
 ### Sample Visualizations
 
 **Diameter Profile Plot**
-Bowel diameter across slices with clinical threshold lines, highlighting regions of concern.
+Bowel diameter across slices with clinical threshold lines, highlighting regions of concern. Following plot is from the results for a test patient from the dataset. 
 ![alt text](assets/diameters_plot.png)
 
 **Severity Heatmap**
@@ -90,5 +90,5 @@ Risk levels across all slices for both small and large bowel.
 
 ## Acknowledgments
 
-- Dataset: [Source if applicable]
+- Dataset: [\[Source if applicable\]](https://www.kaggle.com/datasets/happyharrycn/uw-madison-gi-tract-image-segmentation-dataset)
 - Clinical thresholds: National Library of Medicine research
