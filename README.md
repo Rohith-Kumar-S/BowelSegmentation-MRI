@@ -64,7 +64,7 @@ Diameter thresholds based on peer-reviewed research for small bowel obstruction 
 Reference: 
 https://pubmed.ncbi.nlm.nih.gov/39043061/
 https://pubmed.ncbi.nlm.nih.gov/40357737/
-```
+
 
 ## Results
 
@@ -72,11 +72,11 @@ https://pubmed.ncbi.nlm.nih.gov/40357737/
 
 | Class | IoU |
 |-------|-----|
-| Background | 99% |
-| Small Bowel | 55% |
-| Large Bowel | 68% |
-| Stomach | 77% |
-| **Mean** | **75%** |
+| Background | 99.76% |
+| Small Bowel | 55.08% |
+| Large Bowel | 68.93% |
+| Stomach | 76.79% |
+| **Mean** | **74.89%** |
 
 ### Sample Visualizations
 
