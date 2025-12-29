@@ -1,22 +1,94 @@
-# BowelSegmentation-MRI
+# Bowel Segmentation using SegFormer
 
-**Project Proposal: Transfer Learning and Clustering for Unsupervised Segmentation of Bowel Regions Using Multi-Modal MRI Scans**  
-**Authors**: Rohith Kumar Senthil Kumar and Shweta Perumal
+An Automated bowel segmentation and obstruction detection pipeline from 3D MRI scans using SegFormer.
 
----
+## Overview
 
-### **Summary**  
-This project aims to identify bowel regions in MRI scans without needing labeled data. It uses a combination of pre-trained deep learning models (DenseNet-121/DenseNet-169) and a clustering method (K-means) to segment the images. By using models that have already learned patterns from large datasets (like ImageNet), the process is faster, more efficient, and less reliant on manually labeled medical images. If time permits, the project will explore Vision Transformers (ViT) to improve feature learning and enable self-supervised classification of bowel regions as healthy or inflamed.  
+This project segments small bowel, large bowel, and stomach from MRI scans, then analyzes the segmentation masks to detect potential bowel obstruction by measuring bowel diameter against clinically-verfied bowel diameter thresholds.
 
----
+## Pipeline
 
-### **Proposed Design**  
-This project aims to segment bowel regions in MRI scans without requiring labeled data. Crohn's disease is a long-term condition that causes inflammation in the gut, leading to visible changes on MRI scans. In this study, MRI scans (T1/T2-weighted and diffusion-weighted images) from Crohn's patients will be used, which helps ensure that the models learn to identify real signs of inflammation and bowel damage in a structured pipeline.
-#### **Modules & Workflow**  
-First, the **EDA Module** analyzes the image intensity distributions and class imbalance across the dataset using Numpy and OpenCV. The **Data Preprocessing Module** normalizes and aligns the scans with MedicalDataLoader, which applies intensity correction and normalization to ensure consistency. Next, the **Transfer Learning Module** uses pre-trained deep learning models like DynUNet or DenseNet-121 to extract important features, fine-tuned with synthetic Crohn's MRI data to improve accuracy. These features are then processed by a segmentation model built using TensorFlow. To classify bowel regions as inflamed or healthy, the **Clustering Module** groups similar features using K-Means, while the **Image Processing Module** refines the segmentation with techniques like thresholding and filtering to enhance boundary clarity. Challenges include addressing variations in scan quality, diversifying the training data using synthetic data, and minimizing computational costs through mixed-precision training
+- **Preprocessing**: N4 bias field correction, NLM denoising, and Image augumentations
+- **Segmentation**: Fine-tuned SegFormer model achieving 75% mean IoU across 3 organ classes
+- **Obstruction Detection**: Skeletonization-based diameter measurement to flag dilation risk
+- **Severity Stratification**: 4-tier risk classification (normal, low risk, elevated, high risk)
+- **Visualization**: Slice-level heatmaps and bowel diameter plots
 
----
+## Dataset
 
-#### **Work Split**
- The workload will be divided between the two team members based on a peer review system. Rohith will take the lead on the technical aspects, including implementing deep learning models, clustering techniques, and image processing methods. Meanwhile, Shweta will focus on documentation, ensuring that the project is well-documented with clear explanations, methodology, and results. She will also be responsible for compiling reports, maintaining version control, and organizing findings for presentations. We will both work on Exploratory Data Analysis and review each other's work to ensure accuracy, clarity, and overall project quality.
+- 467 de-identified MRI scans from 107 patients
+- ~144 axial slices per scan
+- Pixel resolution: 1.5 x 1.5 x 3 mm
+- 40,000+ total slices processed
 
+## Installation
+
+```bash
+git clone https://github.com/Rohith-Kumar-S/BowelSegmentation-MRI.git
+cd BowelSegmentation-MRI
+pip install -r requirements.txt
+```
+
+### Requirements
+
+```
+torch
+torchvision
+transformers
+numpy
+tqdm
+albumentations
+matplotlib
+ipywidgets
+kagglehub
+pandas
+opencv-python
+SimpleITK
+antspyx
+scikit-learn
+scipy
+scikit-image
+```
+
+## Clinical Thresholds
+
+Diameter thresholds based on peer-reviewed research for small bowel obstruction detection:
+
+| Threshold | Small Bowel | Large Bowel | Interpretation |
+|-----------|-------------|-------------|----------------|
+| Normal | ≤1.7 cm | ≤3.0 cm | Rule out obstruction |
+| Low Risk | <2.75 cm | <6.0 cm | Monitor |
+| Elevated | <4.0 cm | <9.0 cm | Possible obstruction |
+| High Risk | ≥4.0 cm | ≥9.0 cm | Likely obstruction |
+
+Reference: 
+https://pubmed.ncbi.nlm.nih.gov/39043061/
+https://pubmed.ncbi.nlm.nih.gov/40357737/
+```
+
+## Results
+
+### Segmentation Performance
+
+| Class | IoU |
+|-------|-----|
+| Background | 98.76% |
+| Small Bowel | 55.08% |
+| Large Bowel | 68.93% |
+| Stomach | 76.79% |
+| **Mean** | **74.89%** |
+
+### Sample Visualizations
+
+**Diameter Profile Plot**
+Bowel diameter across slices with clinical threshold lines, highlighting regions of concern.
+![alt text](assets/diameters_plot.png)
+
+**Severity Heatmap**
+Risk levels across all slices for both small and large bowel.
+![alt text](assets/severity_plot.png)
+
+## Acknowledgments
+
+- Dataset: [Source if applicable]
+- Clinical thresholds: National Library of Medicine research
