@@ -90,5 +90,5 @@ Risk levels across all slices for both small and large bowel.
 
 ## Acknowledgments
 
-- Dataset: [\[Source if applicable\]](https://www.kaggle.com/datasets/happyharrycn/uw-madison-gi-tract-image-segmentation-dataset)
+- Dataset: [\[kaggle/happyharrycn/uw-madison-gi-tract-image-segmentation-dataset\]](https://www.kaggle.com/datasets/happyharrycn/uw-madison-gi-tract-image-segmentation-dataset)
 - Clinical thresholds: National Library of Medicine research
